@@ -1,0 +1,26 @@
+@model AdminDashboardViewModel
+@{ ViewData["Title"] = "Admin Dashboard"; }
+<h2>Admin Dashboard</h2>
+<div class="row g-3 mb-4">
+    <div class="col-md-2"><div class="card p-3"><small>Total Employees</small><h4>@Model.TotalEmployees</h4></div></div>
+    <div class="col-md-2"><div class="card p-3"><small>Total Projects</small><h4>@Model.TotalProjects</h4></div></div>
+    <div class="col-md-2"><div class="card p-3"><small>Active</small><h4>@Model.ActiveProjects</h4></div></div>
+    <div class="col-md-3"><div class="card p-3"><small>Near Deadline</small><h4>@Model.ProjectsNearDeadline</h4></div></div>
+    <div class="col-md-3"><div class="card p-3"><small>Delayed</small><h4>@Model.DelayedProjects</h4></div></div>
+</div>
+<div class="row">
+    <div class="col-md-6"><canvas id="statusChart"></canvas></div>
+    <div class="col-md-6"><canvas id="attendanceChart"></canvas></div>
+</div>
+@section Scripts {
+<script>
+new Chart(document.getElementById('statusChart'), {
+  type: 'pie',
+  data: { labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ProjectsByStatus.Keys)), datasets: [{ data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ProjectsByStatus.Values)) }] }
+});
+new Chart(document.getElementById('attendanceChart'), {
+  type: 'bar',
+  data: { labels: ['Present', 'Late', 'Absent'], datasets: [{ data: [@Model.PresentCount, @Model.LateCount, @Model.AbsentCount] }] }
+});
+</script>
+}

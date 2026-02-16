@@ -1,0 +1,10 @@
+@model IEnumerable<Project>
+<h2>Engineer Dashboard</h2>
+<p>My Projects: <strong>@Model.Count()</strong></p>
+<ul class="list-group">
+@foreach (var p in Model)
+{
+    var nextMilestone = p.Milestones.Where(m => !m.IsCompleted).OrderBy(m => m.DueDate).FirstOrDefault();
+    <li class="list-group-item">@p.ProjectName - Upcoming Milestone: @(nextMilestone?.Title ?? "N/A")</li>
+}
+</ul>

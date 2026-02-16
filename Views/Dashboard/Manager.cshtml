@@ -1,0 +1,9 @@
+@model IEnumerable<Project>
+<h2>Manager Dashboard</h2>
+<p>Assigned Projects: <strong>@Model.Count()</strong></p>
+<ul class="list-group">
+@foreach (var p in Model)
+{
+    <li class="list-group-item d-flex justify-content-between"><span>@p.ProjectName</span><span>@p.Deadline.ToShortDateString()</span></li>
+}
+</ul>

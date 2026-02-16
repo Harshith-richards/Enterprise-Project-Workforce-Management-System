@@ -1,0 +1,15 @@
+@model IEnumerable<ApplicationUser>
+@{ ViewData["Title"] = "Employees"; }
+<h2>Employees</h2>
+<table class="table table-striped">
+    <thead><tr><th>Name</th><th>Email</th><th>Department</th><th>Date Joined</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FullName</td><td>@item.Email</td><td>@item.Department</td><td>@item.DateJoined.ToShortDateString()</td>
+            <td>@if (User.IsInRole("Admin")) { <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Edit</a> }</td>
+        </tr>
+    }
+    </tbody>
+</table>

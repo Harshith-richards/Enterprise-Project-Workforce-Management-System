@@ -1,0 +1,6 @@
+@model HrDashboardViewModel
+<h2>HR Dashboard</h2>
+<p>Attendance Summary - Present: @Model.PresentCount | Late: @Model.LateCount | Absent: @Model.AbsentCount</p>
+<table class="table table-sm"><thead><tr><th>Employee</th><th>Late</th></tr></thead><tbody>
+@foreach(var item in Model.LateByEmployee){<tr><td>@item.Key</td><td>@item.Value</td></tr>}
+</tbody></table>
